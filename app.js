@@ -19,8 +19,12 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.status || 500).json({
-        message: err.message || "Server error",
+    const status = err.isOperational && err.status ? err.status : 500;
+    const message =
+        err.isOperational && err.message ? err.message : "Server error";
+
+    res.status(status).json({
+        message,
     });
 });
 
