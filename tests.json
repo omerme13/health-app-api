@@ -1,0 +1,5 @@
+[
+    {"name": "ALT", "threshold": 50},
+    {"name": "Creatine Kinase", "threshold": 171},
+    {"name": "LDH", "threshold": 480}
+]
