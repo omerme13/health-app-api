@@ -9,16 +9,11 @@ const getTests = catchAsync(async (req, res, next) => {
 const getTestResult = catchAsync(async (req, res, next) => {
     const { testName, userTestResult } = req.body;
     const test = await testsService.getTestByName(testName);
-    
-    const data = test
-        ? {
-              isGoodDiagnose: userTestResult < test.threshold,
-              name: test.name,
-          }
-        : {
-              isGoodDiagnose: null,
-              name: "unknown",
-          };
+
+    const isGoodDiagnose = test ? userTestResult < test.threshold : null;
+    const name = test ? test.name : "unknown";
+
+    const data = { isGoodDiagnose, name };
 
     res.json({ data, isFound: !!test });
 });
